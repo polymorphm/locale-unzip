@@ -89,8 +89,6 @@ def locale_unzip(encoding, zipfile_path, file_name_list, exdir=None, password=No
         if password is not None:
             setpassword_result, error = safe_run.safe_run(z.setpassword, password)
             check_error(error)
-            
-            print(password)
         
         infolist_result, error = safe_run.safe_run(z.infolist)
         check_error(error)
