@@ -58,8 +58,8 @@ def secure_name(name):
         
         return name
 
-def get_mtime(info_item):
-    raw_mtime = calendar.timegm(info_item.date_time)
+def get_mtime(zinfo):
+    raw_mtime = calendar.timegm(zinfo.date_time)
     fixed_mtime = raw_mtime + time.altzone
     
     return fixed_mtime
@@ -95,10 +95,10 @@ def locale_unzip(encoding, zipfile_path, file_name_list, exdir=None, password=No
         infolist_result, error = safe_run.safe_run(z.infolist)
         check_error(error)
         
-        info_item_list = tuple(infolist_result)
+        zinfo_list = tuple(infolist_result)
         
-        for info_item in info_item_list:
-            raw_filename = info_item.filename
+        for zinfo in zinfo_list:
+            raw_filename = zinfo.filename
             fixed_filename = secure_name(locale_fix_name(encoding, raw_filename))
             
             if file_name_list is not None and fixed_filename not in file_name_list:
@@ -126,7 +126,7 @@ def locale_unzip(encoding, zipfile_path, file_name_list, exdir=None, password=No
                 w_dir = os.path.dirname(w_path)
                 w_new_path = '{}.new-{}'.format(w_path, pid)
             
-            mtime, mtime_error = safe_run.safe_run(get_mtime, info_item)
+            mtime, mtime_error = safe_run.safe_run(get_mtime, zinfo)
             
             safe_run.safe_run(os.makedirs, w_dir)
             
