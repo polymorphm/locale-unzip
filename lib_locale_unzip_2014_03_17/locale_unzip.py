@@ -99,7 +99,11 @@ def locale_unzip(encoding, zipfile_path, file_name_list, exdir=None, password=No
         
         for zinfo in zinfo_list:
             raw_filename = zinfo.filename
-            fixed_filename = secure_name(locale_fix_name(encoding, raw_filename))
+            if zinfo.flag_bits & 0x800:
+                # already used official utf-8
+                fixed_filename = secure_name(raw_filename)
+            else:
+                fixed_filename = secure_name(locale_fix_name(encoding, raw_filename))
             
             if file_name_list is not None and fixed_filename not in file_name_list:
                 continue
