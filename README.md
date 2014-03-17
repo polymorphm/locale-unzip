@@ -7,4 +7,4 @@ locale-unzip
 Status
 ------
 
-Developer version (git master branch).
+Beta version (0.1.1).
