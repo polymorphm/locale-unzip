@@ -7,7 +7,7 @@ locale-unzip
 Status
 ------
 
-Developer version (git master branch).
+Release: locale-unzip-0.2.1 .
 
 
 Usage Examples
