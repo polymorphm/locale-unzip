@@ -1,6 +1,6 @@
 # -*- mode: python; coding: utf-8 -*-
 #
-# Copyright (c) 2014 Andrej Antonov <polymorphm@gmail.com>.
+# Copyright (c) 2014, 2015 Andrej Antonov <polymorphm@gmail.com>.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ import codecs
 from . import main_errors
 from . import locale_unzip
 
-def main():
+def main(encoding=None):
     parser = argparse.ArgumentParser(
             description=
                     'utility for unzip files with non-standard encoding name',
@@ -55,11 +55,12 @@ def main():
             help='encoding for password',
             )
     
-    parser.add_argument(
-            'encoding',
-            metavar='ENCODING',
-            help='encoding for file names. for example ``cp866`` for cyrillic',
-            )
+    if encoding is None:
+        parser.add_argument(
+                'encoding',
+                metavar='ENCODING',
+                help='encoding for file names. for example ``cp866`` for cyrillic',
+                )
     
     parser.add_argument(
             'zipfile',
@@ -107,7 +108,8 @@ def main():
             else:
                 password = password.encode()
         
-        encoding = args.encoding
+        if encoding is None:
+            encoding = args.encoding
         zipfile_path = args.zipfile
         if args.file:
             file_name_list = tuple(args.file)
